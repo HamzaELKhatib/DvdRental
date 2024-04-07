@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: DvdRental
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dvdrental
+    username: root
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect

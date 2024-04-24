@@ -1,7 +1,9 @@
 package com.hamzakh.dvdrental.service;
 
 import com.hamzakh.dvdrental.entity.*;
+import com.hamzakh.dvdrental.entity.view.*;
 import com.hamzakh.dvdrental.repository.*;
+import com.hamzakh.dvdrental.repository.view.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
@@ -37,6 +39,20 @@ public class DvdRentalService {
 
     final StoreRepository storeRepository;
 
+    final FilmListRepository filmListRepository;
+
+    final ActorInfoRepository actorInfoRepository;
+
+    final CustomerListRepository customerListRepository;
+
+    final NicerButSlowerFilmListRepository nicerButSlowerFilmListRepository;
+
+    final SalesByFilmCategoryRepository salesByFilmCategoryRepository;
+
+    final SalesByStoreRepository salesByStoreRepository;
+
+    final StaffListRepository staffListRepository;
+
     public DvdRentalService(CountryRepository categoryRepository,
                             PaymentRepository paymentRepository,
                             FilmRepository filmRepository,
@@ -46,7 +62,14 @@ public class DvdRentalService {
                             InventoryRepository inventoryRepository,
                             RentalRepository rentalRepository,
                             StaffRepository staffRepository,
-                            StoreRepository storeRepository) {
+                            StoreRepository storeRepository,
+                            FilmListRepository filmListRepository,
+                            ActorInfoRepository actorInfoRepository,
+                            CustomerListRepository customerListRepository,
+                            NicerButSlowerFilmListRepository nicerButSlowerFilmListRepository,
+                            SalesByFilmCategoryRepository salesByFilmCategoryRepository,
+                            SalesByStoreRepository salesByStoreRepository,
+                            StaffListRepository staffListRepository) {
         this.categoryRepository = categoryRepository;
         this.paymentRepository = paymentRepository;
         this.filmRepository = filmRepository;
@@ -57,7 +80,13 @@ public class DvdRentalService {
         this.rentalRepository = rentalRepository;
         this.staffRepository = staffRepository;
         this.storeRepository = storeRepository;
-
+        this.filmListRepository = filmListRepository;
+        this.actorInfoRepository = actorInfoRepository;
+        this.customerListRepository = customerListRepository;
+        this.nicerButSlowerFilmListRepository = nicerButSlowerFilmListRepository;
+        this.salesByFilmCategoryRepository = salesByFilmCategoryRepository;
+        this.salesByStoreRepository = salesByStoreRepository;
+        this.staffListRepository = staffListRepository;
     }
 
     private List<Country> getCountries() {
@@ -98,6 +127,34 @@ public class DvdRentalService {
 
     private List<Store> getStores() {
         return Optional.of(storeRepository.findAll()).orElseThrow();
+    }
+
+    private List<FilmList> getFilmList() {
+        return Optional.of(filmListRepository.findAll()).orElseThrow();
+    }
+
+    private List<ActorInfo> getActorInfo() {
+        return Optional.of(actorInfoRepository.findAll()).orElseThrow();
+    }
+
+    private List<CustomerList> getCustomerList() {
+        return Optional.of(customerListRepository.findAll()).orElseThrow();
+    }
+
+    private List<NicerButSlowerFilmList> getNicerButSlowerFilmList() {
+        return Optional.of(nicerButSlowerFilmListRepository.findAll()).orElseThrow();
+    }
+
+    private List<SalesByFilmCategory> getSalesByFilmCategory() {
+        return Optional.of(salesByFilmCategoryRepository.findAll()).orElseThrow();
+    }
+
+    private List<SalesByStore> getSalesByStore() {
+        return Optional.of(salesByStoreRepository.findAll()).orElseThrow();
+    }
+
+    private List<StaffList> getStaffList() {
+        return Optional.of(staffListRepository.findAll()).orElseThrow();
     }
 
     public String getWelcomeMessage() {
@@ -141,6 +198,34 @@ public class DvdRentalService {
 
         stopWatch.start("stores");
         List<Store> stores = this.getStores();
+        stopWatch.stop();
+
+        stopWatch.start("filmLists");
+        List<FilmList> filmLists = this.getFilmList();
+        stopWatch.stop();
+
+        stopWatch.start("actorInfo");
+        List<ActorInfo> actorInfo = this.getActorInfo();
+        stopWatch.stop();
+
+        stopWatch.start("customerList");
+        List<CustomerList> customerList = this.getCustomerList();
+        stopWatch.stop();
+
+        stopWatch.start("nicerButSlowerFilmList");
+        List<NicerButSlowerFilmList> nicerButSlowerFilmList = this.getNicerButSlowerFilmList();
+        stopWatch.stop();
+
+        stopWatch.start("salesByFilmCategory");
+        List<SalesByFilmCategory> salesByFilmCategory = this.getSalesByFilmCategory();
+        stopWatch.stop();
+
+        stopWatch.start("salesByStore");
+        List<SalesByStore> salesByStore = this.getSalesByStore();
+        stopWatch.stop();
+
+        stopWatch.start("staffList");
+        List<StaffList> staffList = this.getStaffList();
         stopWatch.stop();
 
         logger.info("Data retrieved successfully! Time taken: " + stopWatch.prettyPrint());

@@ -41,7 +41,7 @@ public class Film {
     @Column(name = "replacement_cost", columnDefinition = "numeric")
     private double replacementCost;
 
-    @Column(name = "rating", columnDefinition = "enum('G','PG','PG-13','R','NC-17')")
+    @Column(name = "rating", columnDefinition = "mpaa_rating")
     private String rating;
 
     @Column(name = "special_features", columnDefinition = "set('Trailers','Commentaries','Deleted Scenes','Behind the Scenes')")

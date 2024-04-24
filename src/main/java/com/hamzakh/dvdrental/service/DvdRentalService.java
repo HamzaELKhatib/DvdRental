@@ -2,15 +2,20 @@ package com.hamzakh.dvdrental.service;
 
 import com.hamzakh.dvdrental.entity.*;
 import com.hamzakh.dvdrental.repository.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StopWatch;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class DvdRentalService {
+
+    Logger logger = Logger.getLogger(DvdRentalService.class.getName());
 
     final CountryRepository categoryRepository;
 
@@ -56,66 +61,89 @@ public class DvdRentalService {
     }
 
     private List<Country> getCountries() {
-        Optional<List<Country>> countryList = Optional.of(categoryRepository.findAll());
-        return countryList.orElseThrow();
+        return Optional.of(categoryRepository.findAll()).orElseThrow();
     }
 
     private List<Payment> getPayments() {
-        Optional<List<Payment>> paymentList = Optional.of(paymentRepository.findAll());
-        return paymentList.orElseThrow();
+        return Optional.of(paymentRepository.findAll()).orElseThrow();
     }
 
     private List<Film> getFilms() {
-        Optional<List<Film>> filmList = Optional.of(filmRepository.findAll());
-        return filmList.orElseThrow();
+        return Optional.of(filmRepository.findAll()).orElseThrow();
     }
 
     private List<Address> getAddresses() {
-        Optional<List<Address>> addressList = Optional.of(addressRepository.findAll());
-        return addressList.orElseThrow();
+        return Optional.of(addressRepository.findAll()).orElseThrow();
     }
 
     private List<City> getCities() {
-        Optional<List<City>> cityList = Optional.of(cityRepository.findAll());
-        return cityList.orElseThrow();
+        return Optional.of(cityRepository.findAll()).orElseThrow();
     }
 
     private List<Customer> getCustomers() {
-        Optional<List<Customer>> customerList = Optional.of(customerRepository.findAll());
-        return customerList.orElseThrow();
+        return Optional.of(customerRepository.findAll()).orElseThrow();
     }
 
     private List<Inventory> getInventories() {
-        Optional<List<Inventory>> inventoryList = Optional.of(inventoryRepository.findAll());
-        return inventoryList.orElseThrow();
+        return Optional.of(inventoryRepository.findAll()).orElseThrow();
     }
 
     private List<Rental> getRentals() {
-        Optional<List<Rental>> rentalList = Optional.of(rentalRepository.findAll());
-        return rentalList.orElseThrow();
+        return Optional.of(rentalRepository.findAll()).orElseThrow();
     }
 
     private List<Staff> getStaffs() {
-        Optional<List<Staff>> staffList = Optional.of(staffRepository.findAll());
-        return staffList.orElseThrow();
+        return Optional.of(staffRepository.findAll()).orElseThrow();
     }
 
     private List<Store> getStores() {
-        Optional<List<Store>> storeList = Optional.of(storeRepository.findAll());
-        return storeList.orElseThrow();
+        return Optional.of(storeRepository.findAll()).orElseThrow();
     }
 
     public String getWelcomeMessage() {
+        StopWatch stopWatch = new StopWatch();
+
+        stopWatch.start("countries");
         List<Country> countries = this.getCountries();
+        stopWatch.stop();
+
+        stopWatch.start("payments");
         List<Payment> payments = this.getPayments();
+        stopWatch.stop();
+
+        stopWatch.start("films");
         List<Film> films = this.getFilms();
+        stopWatch.stop();
+
+        stopWatch.start("addresses");
         List<Address> addresses = this.getAddresses();
+        stopWatch.stop();
+
+        stopWatch.start("cities");
         List<City> cities = this.getCities();
+        stopWatch.stop();
+
+        stopWatch.start("customers");
         List<Customer> customers = this.getCustomers();
+        stopWatch.stop();
+
+        stopWatch.start("inventories");
         List<Inventory> inventories = this.getInventories();
+        stopWatch.stop();
+
+        stopWatch.start("rentals");
         List<Rental> rentals = this.getRentals();
+        stopWatch.stop();
+
+        stopWatch.start("staffs");
         List<Staff> staffs = this.getStaffs();
+        stopWatch.stop();
+
+        stopWatch.start("stores");
         List<Store> stores = this.getStores();
+        stopWatch.stop();
+
+        logger.info("Data retrieved successfully! Time taken: " + stopWatch.prettyPrint());
 
         return String.valueOf(this.getCountries().size());
     }

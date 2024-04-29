@@ -230,6 +230,9 @@ public class DvdRentalService {
 
         logger.info("Data retrieved successfully! Time taken: " + stopWatch.prettyPrint());
 
+
+
+
         return String.valueOf(this.getCountries().size());
     }
 }

@@ -1,7 +1,10 @@
 # Stream API exercices:
 #### 1. Retrieve the titles of all films released after the year 2000.
 ```java
-
+films.stream()
+                .filter(film -> film.getReleaseYear() > 2000)
+                .map(Film::getTitle)
+                .collect(Collectors.toList());
 ```
 #### 2. Retrieve the titles of all films released after the year 2000 and that have a rating of PG-13.
 ```java

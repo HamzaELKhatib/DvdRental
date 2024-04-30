@@ -8,7 +8,10 @@ films.stream()
 ```
 #### 2. Retrieve the titles of all films released after the year 2000 and that have a rating of PG-13.
 ```java
-
+films.stream()
+                .filter(film -> film.getReleaseYear() > 2000 && Objects.equals(film.getRating(), "PG-13"))
+                .map(Film::getTitle)
+                .collect(Collectors.toList());
 ```
 #### 3. Retrieve the titles of all films released after the year 2000 and that have a rating of PG-13 and a rental rate of 0.99.
 ```java

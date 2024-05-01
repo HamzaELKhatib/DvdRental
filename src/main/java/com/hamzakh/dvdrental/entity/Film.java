@@ -49,4 +49,7 @@ public class Film {
 
     @Column(name = "fulltext", columnDefinition = "tsvector")
     private String fulltext;
+
+    @Column(name = "language_id")
+    private int languageId;
 }

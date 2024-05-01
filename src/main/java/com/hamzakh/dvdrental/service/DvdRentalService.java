@@ -53,6 +53,8 @@ public class DvdRentalService {
 
     final StaffListRepository staffListRepository;
 
+    final LanguageRepository languageRepository;
+
     public DvdRentalService(CountryRepository categoryRepository,
                             PaymentRepository paymentRepository,
                             FilmRepository filmRepository,
@@ -69,7 +71,8 @@ public class DvdRentalService {
                             NicerButSlowerFilmListRepository nicerButSlowerFilmListRepository,
                             SalesByFilmCategoryRepository salesByFilmCategoryRepository,
                             SalesByStoreRepository salesByStoreRepository,
-                            StaffListRepository staffListRepository) {
+                            StaffListRepository staffListRepository,
+                            LanguageRepository languageRepository) {
         this.categoryRepository = categoryRepository;
         this.paymentRepository = paymentRepository;
         this.filmRepository = filmRepository;
@@ -87,6 +90,7 @@ public class DvdRentalService {
         this.salesByFilmCategoryRepository = salesByFilmCategoryRepository;
         this.salesByStoreRepository = salesByStoreRepository;
         this.staffListRepository = staffListRepository;
+        this.languageRepository = languageRepository;
     }
 
     private List<Country> getCountries() {
@@ -155,6 +159,10 @@ public class DvdRentalService {
 
     private List<StaffList> getStaffList() {
         return Optional.of(staffListRepository.findAll()).orElseThrow();
+    }
+
+    private List<Language> getLanguages() {
+        return Optional.of(languageRepository.findAll()).orElseThrow();
     }
 
     public String getWelcomeMessage() {
@@ -228,11 +236,27 @@ public class DvdRentalService {
         List<StaffList> staffList = this.getStaffList();
         stopWatch.stop();
 
+        stopWatch.start("languages");
+        List<Language> languages = this.getLanguages();
+        stopWatch.stop();
+
         logger.info("Data retrieved successfully! Time taken: " + stopWatch.prettyPrint());
 
+        films.stream()
+                .filter(film ->
+                        film.getReleaseYear() > 2000
+                                && Objects.equals(film.getRating(), "PG-13")
+                                && film.getRentalRate() == 0.99
+                                && film.getReplacementCost() == 20.99
+                                && film.getLength() == 100
+                                && film.getSpecialFeatures().contains("Trailers")
+                                && languages.stream()
+                                .filter(language -> language.getId().equals(film.getLanguageId()))
+                                .map(Language::getName)
+                                .allMatch(s -> s.equals("English")))
+                .map(Film::getTitle)
+                .collect(Collectors.toList());
 
-
-
-        return String.valueOf(this.getCountries().size());
+        return "";
     }
 }

@@ -48,7 +48,16 @@ films.stream()
 ```
 #### 6. Retrieve the titles of all films released after the year 2000 and that have a rating of PG-13 and a rental rate of 0.99 and a replacement cost of 20.99 and a length of 100 minutes and a special features of Trailers.
 ```java
-
+films.stream()
+                .filter(film ->
+                        film.getReleaseYear() > 2000
+                                && Objects.equals(film.getRating(), "PG-13")
+                                && film.getRentalRate() == 0.99
+                                && film.getReplacementCost() == 20.99
+                                && film.getLength() == 100
+                                && film.getSpecialFeatures().contains("Trailers"))
+                .map(Film::getTitle)
+                .collect(Collectors.toList());
 ```
 #### 7. Retrieve the titles of all films released after the year 2000 and that have a rating of PG-13 and a rental rate of 0.99 and a replacement cost of 20.99 and a length of 100 minutes and a special features of Trailers and a language of English.
 ```java

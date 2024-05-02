@@ -78,7 +78,21 @@ films.stream()
 ```
 #### 8. Retrieve the titles of all films released after the year 2000 and that have a rating of PG-13 and a rental rate of 0.99 and a replacement cost of 20.99 and a length of 100 minutes and a special features of Trailers and a language of English and a last update date of 2006-02-15 05:03:42.
 ```java
-
+films.stream()
+                .filter(film ->
+                        film.getReleaseYear() > 2000
+                                && Objects.equals(film.getRating(), "PG-13")
+                                && film.getRentalRate() == 0.99
+                                && film.getReplacementCost() == 20.99
+                                && film.getLength() == 100
+                                && film.getSpecialFeatures().contains("Trailers")
+                                && languages.stream()
+                                .filter(language -> language.getId().equals(film.getLanguageId()))
+                                .map(Language::getName)
+                                .allMatch(s -> s.equals("English"))
+                                && film.getLastUpdate().equals(Timestamp.valueOf("2006-02-15 05:03:42")))
+                .map(Film::getTitle)
+                .collect(Collectors.toList());
 ```
 #### 9. Retrieve the titles of all films released after the year 2000 and that have a rating of PG-13 and a rental rate of 0.99 and a replacement cost of 20.99 and a length of 100 minutes and a special features of Trailers and a language of English and a last update date of 2006-02-15 05:03:42 and a release year of 2006.
 ```java

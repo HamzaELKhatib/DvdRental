@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @ToString
@@ -52,4 +54,7 @@ public class Film {
 
     @Column(name = "language_id")
     private int languageId;
+
+    @Column(name = "last_update")
+    private Timestamp lastUpdate;
 }

@@ -135,7 +135,11 @@ films.stream()
 ```
 #### 14. Find the top 5 longest films (by length) in the database.
 ```java
-
+films.stream()
+                .sorted(Comparator.comparing(Film::getLength).reversed())
+                .limit(5)
+                .map(Film::getTitle)
+                .collect(Collectors.toList());
 ```
 #### 15. Find the top 5 shortest films (by length) in the database.
 ```java

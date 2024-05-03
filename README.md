@@ -143,7 +143,11 @@ films.stream()
 ```
 #### 15. Find the top 5 shortest films (by length) in the database.
 ```java
-
+films.stream()
+                .sorted(Comparator.comparing(Film::getLength))
+                .limit(5)
+                .map(Film::getTitle)
+                .collect(Collectors.toList());
 ```
 #### 16. Find the top 5 films with the highest replacement cost in the database.
 ```java

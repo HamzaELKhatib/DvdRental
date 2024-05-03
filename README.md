@@ -151,27 +151,51 @@ films.stream()
 ```
 #### 16. Find the top 5 films with the highest replacement cost in the database.
 ```java
-
+films.stream()
+                .sorted(Comparator.comparing(Film::getReplacementCost).reversed())
+                .limit(5)
+                .map(Film::getTitle)
+                .collect(Collectors.toList());
 ```
 #### 17. Find the top 5 films with the lowest replacement cost in the database.
 ```java
-
+films.stream()
+                .sorted(Comparator.comparing(Film::getReplacementCost))
+                .limit(5)
+                .map(Film::getTitle)
+                .collect(Collectors.toList());
 ```
 #### 18. Find the top 5 films with the highest rental rate in the database.
 ```java
-
+films.stream()
+                .sorted(Comparator.comparing(Film::getRentalRate).reversed())
+                .limit(5)
+                .map(Film::getTitle)
+                .collect(Collectors.toList());
 ```
 #### 19. Find the top 5 films with the lowest rental rate in the database.
 ```java
-
+films.stream()
+                .sorted(Comparator.comparing(Film::getRentalRate))
+                .limit(5)
+                .map(Film::getTitle)
+                .collect(Collectors.toList());
 ```
 #### 20. Find the top 5 films with the highest rental duration in the database.
 ```java
-
+films.stream()
+                .sorted(Comparator.comparing(Film::getRentalDuration).reversed())
+                .limit(5)
+                .map(Film::getTitle)
+                .collect(Collectors.toList());
 ```
 #### 21. Find the top 5 films with the lowest rental duration in the database.
 ```java
-
+films.stream()
+                .sorted(Comparator.comparing(Film::getRentalDuration))
+                .limit(5)
+                .map(Film::getTitle)
+                .collect(Collectors.toList());
 ```
 #### 46. Calculate the total number of rentals for each customer.
 ```java

@@ -199,7 +199,10 @@ films.stream()
 ```
 #### 46. Calculate the total number of rentals for each customer.
 ```java
-
+rentals.stream()
+                .collect(Collectors.groupingBy(
+                        rental -> rental.getCustomer().getFirstName() + " " + rental.getCustomer().getLastName(),
+                        Collectors.counting()));
 ```
 #### 47. Calculate the total number of rentals for each customer in each store.
 ```java

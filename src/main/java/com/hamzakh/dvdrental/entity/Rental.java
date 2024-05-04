@@ -1,9 +1,6 @@
 package com.hamzakh.dvdrental.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -22,6 +19,12 @@ public class Rental {
     @Column(name = "rental_id")
     private int rentalId;
 
+    @Column(name = "inventory_id")
+    private int inventoryId;
+
+    @Column(name = "customer_id")
+    private int customerId;
+
     @Column(name = "rental_date")
     private Timestamp rentalDate;
 
@@ -30,4 +33,8 @@ public class Rental {
 
     @Column(name = "last_update")
     private Timestamp lastUpdate;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id", insertable = false, updatable = false)
+    private Customer customer;
 }

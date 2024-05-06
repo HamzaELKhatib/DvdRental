@@ -206,37 +206,58 @@ rentals.stream()
 ```
 #### 47. Calculate the total number of rentals for each customer in each store.
 ```java
-
+rentals.stream()
+                .collect(Collectors.groupingBy(
+                        rental -> rental.getCustomer().getFirstName()
+                                + " "
+                                + rental.getCustomer().getLastName()
+                                + " "
+                                + stores.stream().filter(store -> store.getStoreId() == rental.getInventory().getStoreId()).map(Store::getStoreId),
+                        Collectors.counting()));
 ```
-#### 48. Calculate the total number of rentals for each customer in each store in each city.
+#### 48. Calculate the total number of rentals for each customer in each city.
+```java
+rentals.stream()
+                .flatMap(rental -> rental.getAddresses().stream()
+                        .flatMap(address -> address.getCities().stream()
+                                .map(city -> new AbstractMap.SimpleEntry<>(
+                                        rental.getCustomer().getFirstName() + " "
+                                                + rental.getCustomer().getLastName() + " "
+                                                + city.getCity(),
+                                        1L
+                                ))
+                        )
+                )
+                .collect(Collectors.groupingBy(
+                        Map.Entry::getKey,
+                        Collectors.counting()
+                ));
+```
+#### 49. Calculate the total number of rentals for each customer in each city in each country.
 ```java
 
 ```
-#### 49. Calculate the total number of rentals for each customer in each store in each city in each country.
+#### 50. Calculate the total number of rentals for each customer in each city in each country in each year.
 ```java
 
 ```
-#### 50. Calculate the total number of rentals for each customer in each store in each city in each country in each year.
+#### 51. Calculate the total number of rentals for each customer in each city in each country in each year in each month.
 ```java
 
 ```
-#### 51. Calculate the total number of rentals for each customer in each store in each city in each country in each year in each month.
+#### 52. Calculate the total number of rentals for each customer in each city in each country in each year in each month in each day.
 ```java
 
 ```
-#### 52. Calculate the total number of rentals for each customer in each store in each city in each country in each year in each month in each day.
+#### 53. Calculate the total number of rentals for each customer in each city in each country in each year in each month in each day in each hour.
 ```java
 
 ```
-#### 53. Calculate the total number of rentals for each customer in each store in each city in each country in each year in each month in each day in each hour.
+#### 54. Calculate the total number of rentals for each customer in each city in each country in each year in each month in each day in each hour in each minute.
 ```java
 
 ```
-#### 54. Calculate the total number of rentals for each customer in each store in each city in each country in each year in each month in each day in each hour in each minute.
-```java
-
-```
-#### 55. Calculate the total number of rentals for each customer in each store in each city in each country in each year in each month in each day in each hour in each minute in each second.
+#### 55. Calculate the total number of rentals for each customer in each city in each country in each year in each month in each day in each hour in each minute in each second.
 ```java
 
 ```
@@ -316,31 +337,31 @@ rentals.stream()
 ```java
 
 ```
-#### 75. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each store in each city.
+#### 75. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each city.
 ```java
 
 ```
-#### 76. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each store in each city in each country.
+#### 76. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each city in each country.
 ```java
 
 ```
-#### 77. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each store in each city in each country in each year.
+#### 77. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each city in each country in each year.
 ```java
 
 ```
-#### 78. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each store in each city in each country in each year in each month.
+#### 78. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each city in each country in each year in each month.
 ```java
 
 ```
-#### 79. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each store in each city in each country in each year in each month in each day.
+#### 79. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each city in each country in each year in each month in each day.
 ```java
 
 ```
-#### 80. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each store in each city in each country in each year in each month in each day in each hour.
+#### 80. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each city in each country in each year in each month in each day in each hour.
 ```java
 
 ```
-#### 81. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each store in each city in each country in each year in each month in each day in each hour in each minute.
+#### 81. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each city in each country in each year in each month in each day in each hour in each minute.
 ```java
 
 ```
@@ -352,11 +373,11 @@ rentals.stream()
 ```java
 
 ```
-#### 84. Find the most popular film category (highest average rental duration) in each store in each city.
+#### 84. Find the most popular film category (highest average rental duration) in each city.
 ```java
 
 ```
-#### 85. Find the most popular film category (highest average rental duration) in each store in each city in each country.
+#### 85. Find the most popular film category (highest average rental duration) in each city in each country.
 ```java
 
 ```
@@ -516,7 +537,7 @@ rentals.stream()
 ```java
 
 ```
-#### 125. Find the category with the highest average rental duration (excluding “Documentary”) in each store in each city. If there is a tie, return all categories.
+#### 125. Find the category with the highest average rental duration (excluding “Documentary”) in each city. If there is a tie, return all categories.
 ```java
 
 ```
@@ -552,11 +573,11 @@ rentals.stream()
 ```java
 
 ```
-#### 134. Find the total number of rentals for each actor in each film category in each store in each city. Use parallel streams for better performance.
+#### 134. Find the total number of rentals for each actor in each film category in each city. Use parallel streams for better performance.
 ```java
 
 ```
-#### 135. Find the total number of rentals for each actor in each film category in each store in each city in each country. Use parallel streams for better performance.
+#### 135. Find the total number of rentals for each actor in each film category in each city in each country. Use parallel streams for better performance.
 ```java
 
 ```

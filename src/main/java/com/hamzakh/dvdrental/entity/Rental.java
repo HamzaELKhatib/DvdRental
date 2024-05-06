@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -37,4 +38,12 @@ public class Rental {
     @ManyToOne
     @JoinColumn(name = "customer_id", insertable = false, updatable = false)
     private Customer customer;
+
+    @OneToMany
+    @JoinColumn(name = "address_id", insertable = false, updatable = false)
+    private List<Address> addresses;
+
+    @ManyToOne
+    @JoinColumn(name = "inventory_id", insertable = false, updatable = false)
+    private Inventory inventory;
 }

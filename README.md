@@ -232,6 +232,22 @@ rentals.stream()
                         Map.Entry::getKey,
                         Collectors.counting()
                 ));
+//=====================================================================================================
+rentals.stream()
+        .flatMap(rental -> rental.getAddresses().stream()
+                .flatMap(address -> address.getCities().stream()
+                        .map(city -> 
+                                rental.getCustomer().getFirstName() 
+                                + " " 
+                                + rental.getCustomer().getLastName() 
+                                + " -> " 
+                                + city.getCity())))
+        .collect(Collectors
+                .groupingBy(
+                        Function.identity(), 
+                        Collectors.counting()
+                )
+        );
 ```
 #### 49. Calculate the total number of rentals for each customer in each city in each country.
 ```java

@@ -23,4 +23,8 @@ public class City {
 
     @Column(name = "last_update")
     private Timestamp lastUpdate;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id", insertable = false, updatable = false)
+    private Country country;
 }

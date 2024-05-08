@@ -374,7 +374,27 @@ rentals.stream()
 ```
 #### 55. Calculate the total number of rentals for each customer in each city in each country in each year in each month in each day in each hour in each minute in each second.
 ```java
-
+rentals.stream()
+                .flatMap(rental -> rental.getAddresses().stream()
+                        .flatMap(address -> address.getCities().stream()
+                                .filter(c -> c.getCountry() != null)
+                                .map(city -> String.format("Full Name: %s %s.%nAddress : %s, %s.%nTime: %s-%s-%s %s:%s:%s",
+                                        rental.getCustomer().getFirstName(),
+                                        rental.getCustomer().getLastName(),
+                                        city.getCity(),
+                                        city.getCountry().getCountry(),
+                                        rental.getRentalDate().toLocalDateTime().getYear(),
+                                        rental.getRentalDate().toLocalDateTime().getMonthValue(),
+                                        rental.getRentalDate().toLocalDateTime().getDayOfMonth(),
+                                        rental.getRentalDate().toLocalDateTime().getHour(),
+                                        rental.getRentalDate().toLocalDateTime().getMinute(),
+                                        rental.getRentalDate().toLocalDateTime().getSecond()))))
+                .collect(Collectors
+                        .groupingBy(
+                                Function.identity(),
+                                Collectors.counting()
+                        )
+                );
 ```
 #### 56. Create a list of rental transactions with customer names and film titles.
 ```java

@@ -288,7 +288,23 @@ rentals.stream()
 ```
 #### 51. Calculate the total number of rentals for each customer in each city in each country in each year in each month.
 ```java
-
+rentals.stream()
+                .flatMap(rental -> rental.getAddresses().stream()
+                        .flatMap(address -> address.getCities().stream()
+                                .filter(c -> c.getCountry() != null)
+                                .map(city -> String.format("Name : %s %s, City : %s, Country : %s, Year: %s, Month: %s",
+                                        rental.getCustomer().getFirstName(),
+                                        rental.getCustomer().getLastName(),
+                                        city.getCity(),
+                                        city.getCountry().getCountry(),
+                                        rental.getRentalDate().toLocalDateTime().getYear(),
+                                        rental.getRentalDate().toLocalDateTime().getMonth().toString()))))
+                .collect(Collectors
+                        .groupingBy(
+                                Function.identity(),
+                                Collectors.counting()
+                        )
+                );
 ```
 #### 52. Calculate the total number of rentals for each customer in each city in each country in each year in each month in each day.
 ```java

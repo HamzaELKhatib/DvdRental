@@ -398,55 +398,278 @@ rentals.stream()
 ```
 #### 56. Create a list of rental transactions with customer names and film titles.
 ```java
+rentals.stream()
+                .map(rental -> {
+                    Customer customer = rental.getCustomer();
+                    Film film = rental.getInventory().getFilm();
 
+                    return String.format(
+                            "%s %s rented '%s'",
+                            customer.getFirstName(),
+                            customer.getLastName(),
+                            film.getTitle()
+                    );
+                })
+                .collect(Collectors.toList());
 ```
 #### 57. Create a list of rental transactions with customer names and film titles and rental dates.
 ```java
+rentals.stream()
+                .map(rental -> {
+                    Customer customer = rental.getCustomer();
+                    Film film = rental.getInventory().getFilm();
 
+                    return String.format(
+                            "%s %s rented '%s' on %s",
+                            customer.getFirstName(),
+                            customer.getLastName(),
+                            film.getTitle(),
+                            rental.getRentalDate()
+                    );
+                })
+                .collect(Collectors.toList());
 ```
 #### 58. Create a list of rental transactions with customer names and film titles and rental dates and return dates.
 ```java
+rentals.stream()
+                .map(rental -> {
+                    Customer customer = rental.getCustomer();
+                    Film film = rental.getInventory().getFilm();
 
+                    return String.format(
+                            "%s %s rented '%s' on %s and returned on %s.",
+                            customer.getFirstName(),
+                            customer.getLastName(),
+                            film.getTitle(),
+                            rental.getRentalDate(),
+                            rental.getReturnDate()
+                    );
+                })
+                .collect(Collectors.toList());
 ```
 #### 59. Create a list of rental transactions with customer names and film titles and rental dates and return dates and staff names.
 ```java
+rentals.stream()
+                .map(rental -> {
+                    Customer customer = rental.getCustomer();
+                    Film film = rental.getInventory().getFilm();
+                    Staff staff = rental.getStaff();
 
+                    return String.format(
+                            "%s %s rented '%s' on %s and returned on %s. Staff: %s %s",
+                            customer.getFirstName(),
+                            customer.getLastName(),
+                            film.getTitle(),
+                            rental.getRentalDate(),
+                            rental.getReturnDate(),
+                            staff.getFirstName(),
+                            staff.getLastName()
+                    );
+                })
+                .collect(Collectors.toList());
 ```
 #### 60. Create a list of rental transactions with customer names and film titles and rental dates and return dates and staff names and store names.
 ```java
+rentals.stream()
+                .map(rental -> {
+                    Customer customer = rental.getCustomer();
+                    Film film = rental.getInventory().getFilm();
+                    Staff staff = rental.getStaff();
+                    Store store = staff.getStore();
 
+                    return String.format(
+                            "%s %s rented '%s' on %s and returned on %s. Staff: %s %s, Store: %s",
+                            customer.getFirstName(),
+                            customer.getLastName(),
+                            film.getTitle(),
+                            rental.getRentalDate(),
+                            rental.getReturnDate(),
+                            staff.getFirstName(),
+                            staff.getLastName(),
+                            store.getStoreId()
+                    );
+                })
+                .collect(Collectors.toList());
 ```
 #### 61. Create a list of rental transactions with customer names and film titles and rental dates and return dates and staff names and store names and city names.
 ```java
+rentals.stream()
+                .map(rental -> {
+                    Customer customer = rental.getCustomer();
+                    Film film = rental.getInventory().getFilm();
+                    Staff staff = rental.getStaff();
+                    Store store = staff.getStore();
+                    Address address = store.getAddress();
+                    City city = address.getCity();
 
+                    return String.format(
+                            "%s %s rented '%s' on %s and returned on %s. Staff: %s %s, Store: %s, City: %s",
+                            customer.getFirstName(),
+                            customer.getLastName(),
+                            film.getTitle(),
+                            rental.getRentalDate(),
+                            rental.getReturnDate(),
+                            staff.getFirstName(),
+                            staff.getLastName(),
+                            store.getStoreId(),
+                            city.getCity()
+                    );
+                })
+                .collect(Collectors.toList());
 ```
 #### 62. Create a list of rental transactions with customer names and film titles and rental dates and return dates and staff names and store names and city names and country names.
 ```java
+rentals.stream()
+                .map(rental -> {
+                    Customer customer = rental.getCustomer();
+                    Film film = rental.getInventory().getFilm();
+                    Staff staff = rental.getStaff();
+                    Store store = staff.getStore();
+                    Address address = store.getAddress();
+                    City city = address.getCity();
+                    Country country = city.getCountry();
 
+                    return String.format(
+                            "%s %s rented '%s' on %s and returned on %s. Staff: %s %s, Store: %s, City: %s, Country: %s",
+                            customer.getFirstName(),
+                            customer.getLastName(),
+                            film.getTitle(),
+                            rental.getRentalDate(),
+                            rental.getReturnDate(),
+                            staff.getFirstName(),
+                            staff.getLastName(),
+                            store.getStoreId(),
+                            city.getCity(),
+                            country.getCountry()
+                    );
+                })
+                .collect(Collectors.toList());
 ```
 #### 63. Create a list of rental transactions with customer names and film titles and rental dates and return dates and staff names and store names and city names and country names and payment amounts.
 ```java
+rentals.stream()
+                .map(rental -> {
+                    Customer customer = rental.getCustomer();
+                    Film film = rental.getInventory().getFilm();
+                    Staff staff = rental.getStaff();
+                    Store store = staff.getStore();
+                    Address address = store.getAddress();
+                    City city = address.getCity();
+                    Country country = city.getCountry();
+                    Payment payment = rental.getPayment();
 
+                    return String.format(
+                            "%s %s rented '%s' on %s and returned on %s. Staff: %s %s, Store: %s, City: %s, Country: %s, Payment: %.2f",
+                            customer.getFirstName(),
+                            customer.getLastName(),
+                            film.getTitle(),
+                            rental.getRentalDate(),
+                            rental.getReturnDate(),
+                            staff.getFirstName(),
+                            staff.getLastName(),
+                            store.getStoreId(),
+                            city.getCity(),
+                            country.getCountry(),
+                            payment.getAmount()
+                    );
+                })
+                .collect(Collectors.toList());
 ```
 #### 64. Create a list of rental transactions with customer names and film titles and rental dates and return dates and staff names and store names and city names and country names and payment amounts and rental durations.
 ```java
+rentals.stream()
+                .map(rental -> {
+                    Customer customer = rental.getCustomer();
+                    Film film = rental.getInventory().getFilm();
+                    Staff staff = rental.getStaff();
+                    Store store = staff.getStore();
+                    Address address = store.getAddress();
+                    City city = address.getCity();
+                    Country country = city.getCountry();
+                    Payment payment = rental.getPayment();
 
+                    return String.format(
+                            "%s %s rented '%s' on %s and returned on %s. Staff: %s %s, Store: %s, City: %s, Country: %s, Payment: %.2f, Duration: %d",
+                            customer.getFirstName(),
+                            customer.getLastName(),
+                            film.getTitle(),
+                            rental.getRentalDate(),
+                            rental.getReturnDate(),
+                            staff.getFirstName(),
+                            staff.getLastName(),
+                            store.getStoreId(),
+                            city.getCity(),
+                            country.getCountry(),
+                            payment.getAmount(),
+                            film.getRentalDuration()
+                    );
+                })
+                .collect(Collectors.toList());
 ```
 #### 65. Create a list of rental transactions with customer names and film titles and rental dates and return dates and staff names and store names and city names and country names and payment amounts and rental durations and rental rates.
 ```java
+rentals.stream()
+                .map(rental -> {
+                    Customer customer = rental.getCustomer();
+                    Film film = rental.getInventory().getFilm();
+                    Staff staff = rental.getStaff();
+                    Store store = staff.getStore();
+                    Address address = store.getAddress();
+                    City city = address.getCity();
+                    Country country = city.getCountry();
+                    Payment payment = rental.getPayment();
 
+                    return String.format(
+                            "%s %s rented '%s' on %s and returned on %s. Staff: %s %s, Store: %s, City: %s, Country: %s, Payment: %.2f, Duration: %d, Rate: %.2f",
+                            customer.getFirstName(),
+                            customer.getLastName(),
+                            film.getTitle(),
+                            rental.getRentalDate(),
+                            rental.getReturnDate(),
+                            staff.getFirstName(),
+                            staff.getLastName(),
+                            store.getStoreId(),
+                            city.getCity(),
+                            country.getCountry(),
+                            payment.getAmount(),
+                            film.getRentalDuration(),
+                            film.getRentalRate()
+                    );
+                })
+                .collect(Collectors.toList());
 ```
 #### 66. Create a list of rental transactions with customer names and film titles and rental dates and return dates and staff names and store names and city names and country names and payment amounts and rental durations and rental rates and replacement costs.
 ```java
+rentals.stream()
+                .map(rental -> {
+                    Customer customer = rental.getCustomer();
+                    Film film = rental.getInventory().getFilm();
+                    Staff staff = rental.getStaff();
+                    Store store = staff.getStore();
+                    Address address = store.getAddress();
+                    City city = address.getCity();
+                    Country country = city.getCountry();
+                    Payment payment = rental.getPayment();
 
-```
-#### 67. Create a list of rental transactions with customer names and film titles and rental dates and return dates and staff names and store names and city names and country names and payment amounts and rental durations and rental rates and replacement costs and rental dates.
-```java
-
-```
-#### 68. Create a list of rental transactions with customer names and film titles and rental dates and return dates and staff names and store names and city names and country names and payment amounts and rental durations and rental rates and replacement costs and rental dates and rental durations.
-```java
-
+                    return String.format(
+                            "%s %s rented '%s' on %s and returned on %s. Staff: %s %s, Store: %s, City: %s, Country: %s, Payment: %.2f, Duration: %d, Rate: %.2f, Replacement Cost: %.2f",
+                            customer.getFirstName(),
+                            customer.getLastName(),
+                            film.getTitle(),
+                            rental.getRentalDate(),
+                            rental.getReturnDate(),
+                            staff.getFirstName(),
+                            staff.getLastName(),
+                            store.getStoreId(),
+                            city.getCity(),
+                            country.getCountry(),
+                            payment.getAmount(),
+                            film.getRentalDuration(),
+                            film.getRentalRate(),
+                            film.getReplacementCost()
+                    );
+                })
+                .collect(Collectors.toList());
 ```
 #### 69. Find all films with a rating of “R” and a length greater than 120 minutes.
 ```java

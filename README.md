@@ -673,19 +673,40 @@ rentals.stream()
 ```
 #### 69. Find all films with a rating of “R” and a length greater than 120 minutes.
 ```java
-
+films.stream()
+                .filter(film ->
+                        film.getRating().equals("R") && film.getLength() > 120)
+                .collect(Collectors.toSet());
 ```
 #### 70. Find all films with a rating of “R” and a length greater than 120 minutes and a rental rate of 2.99.
 ```java
-
+films.stream()
+                .filter(film ->
+                        film.getRating().equals("R")
+                                && film.getLength() > 120
+                                && film.getRentalRate() == 2.99)
+                .collect(Collectors.toSet());
 ```
 #### 71. Find all films with a rating of “R” and a length greater than 120 minutes and a rental rate of 2.99 and a replacement cost of 10.99.
 ```java
-
+films.stream()
+                .filter(film ->
+                        film.getRating().equals("R")
+                                && film.getLength() > 120
+                                && film.getRentalRate() == 2.99
+                                && film.getReplacementCost() == 10.99)
+                .collect(Collectors.toSet());
 ```
 #### 72. Find all films with a rating of “R” and a length greater than 120 minutes and a rental rate of 2.99 and a replacement cost of 10.99 and a rental duration of 5 days.
 ```java
-
+films.stream()
+                .filter(film ->
+                        film.getRating().equals("R")
+                                && film.getLength() > 120
+                                && film.getRentalRate() == 2.99
+                                && film.getReplacementCost() == 10.99
+                                && film.getRentalDuration() == 5)
+                .collect(Collectors.toSet());
 ```
 #### 73. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy).
 ```java

@@ -1,15 +1,13 @@
 package com.hamzakh.dvdrental.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -57,4 +55,12 @@ public class Film {
 
     @Column(name = "last_update")
     private Timestamp lastUpdate;
+
+    @ManyToMany
+    @JoinTable(
+            name = "film_category",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categories;
 }

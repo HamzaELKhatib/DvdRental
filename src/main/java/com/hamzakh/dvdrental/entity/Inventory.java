@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,4 +22,16 @@ public class Inventory {
 
     @Column(name = "last_update")
     private Timestamp lastUpdate;
+
+    @ManyToOne
+    @JoinColumn(name = "film_id", insertable = false, updatable = false)
+    private Film film;
+
+    @ManyToOne
+    @JoinColumn(name = "store_id", insertable = false, updatable = false)
+    private Store store;
+
+    @OneToMany
+    @JoinColumn(name = "rental_id", insertable = false, updatable = false)
+    private List<Rental> rental;
 }

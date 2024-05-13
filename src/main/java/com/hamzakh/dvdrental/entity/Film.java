@@ -63,4 +63,13 @@ public class Film {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private List<Category> categories;
+
+    @ManyToOne
+    @JoinColumn(name = "language_id", insertable = false, updatable = false)
+    private Language language;
+
+    @OneToMany
+    @JoinColumn(name = "film_id", insertable = false, updatable = false)
+    private List<Inventory> inventories;
+
 }

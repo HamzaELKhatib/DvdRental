@@ -46,4 +46,12 @@ public class Rental {
     @ManyToOne
     @JoinColumn(name = "inventory_id", insertable = false, updatable = false)
     private Inventory inventory;
+
+    @ManyToOne
+    @JoinColumn(name = "staff_id", insertable = false, updatable = false)
+    private Staff staff;
+
+    @OneToMany
+    @JoinColumn(name = "store_id", insertable = false, updatable = false)
+    private List<Store> store;
 }

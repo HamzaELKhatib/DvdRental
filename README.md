@@ -749,7 +749,54 @@ films.stream()
 ```
 #### 75. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each city.
 ```java
+films.stream()
+                .flatMap(film -> film.getCategories().stream()
+                        .map(s -> new AbstractMap.SimpleEntry<>(
+                                s.getName()
+                                        + " "
+                                        + film.getInventories().stream()
+                                        .flatMap(inventory -> inventory.getRental().stream()
+                                                .flatMap(rental -> rental.getStore().stream()
+                                                        .map(Store::getStoreId)
+                                                )
+                                        )
+                                        + " "
+                                        + film.getInventories().stream()
+                                        .flatMap(inventory -> inventory.getRental().stream()
+                                                .flatMap(rental -> rental.getStore().stream()
+                                                        .flatMap(store -> store.getAddress().getCities().stream()
+                                                                .map(City::getCity))
+                                                )
+                                        ),
+                                film.getRentalDuration()
+                        )))
+                .collect(Collectors.groupingBy(
+                                Map.Entry::getKey,
+                                Collectors.averagingDouble(Map.Entry::getValue)
+                        )
+                );
 
+//=============================================================================================================================
+
+        films.stream()
+                .flatMap(film -> film.getCategories().stream()
+                        .flatMap(category -> film.getInventories().stream()
+                                .flatMap(inventory -> inventory.getRental().stream()
+                                        .flatMap(rental -> rental.getStore().stream()
+                                                .flatMap(store -> store.getAddress().getCities().stream()
+                                                        .map(city -> new AbstractMap.SimpleEntry<>(
+                                                                category.getName() + " " + store.getStoreId() + " " + city.getCity(),
+                                                                film.getRentalDuration()
+                                                        ))
+                                                )
+                                        )
+                                )
+                        )
+                )
+                .collect(Collectors.groupingBy(
+                        Map.Entry::getKey,
+                        Collectors.averagingDouble(Map.Entry::getValue)
+                ));
 ```
 #### 76. Calculate the average rental duration (in days) for each film category (e.g., Action, Drama, Comedy) in each city in each country.
 ```java
